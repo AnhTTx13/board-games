@@ -30,7 +30,7 @@ export class ViewController {
   }
 
   @Get("/game/caro")
-  @Render("caro-game")
+  @Render("game-caro")
   async caroGame(@User("email") email: string) {
     if (email) {
       const user = await this.viewService.getUserByEmail(email);
@@ -40,8 +40,18 @@ export class ViewController {
   }
 
   @Get("/game/line98")
-  @Render("line98-game")
+  @Render("game-line98")
   async line98Game(@User("email") email: string) {
+    if (email) {
+      const user = await this.viewService.getUserByEmail(email);
+      return { user };
+    }
+    return {};
+  }
+
+  @Get("/game/sudoku")
+  @Render("game-sudoku")
+  async sudokuGame(@User("email") email: string) {
     if (email) {
       const user = await this.viewService.getUserByEmail(email);
       return { user };

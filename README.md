@@ -1,6 +1,6 @@
 # Board-games
 
-Retro games application built with NestJS MVC.
+Retro games application built with NestJS and Pug template engine (following the MVC architecture).
 
 ## Getting Started
 

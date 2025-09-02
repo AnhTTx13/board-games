@@ -1,0 +1,26 @@
+extends app-layout
+
+block content
+  div(class="w-full h-full flex items-center justify-center flex-col font-semibold")
+    h1(class="text-2xl font-bold") Sudoku
+    div(class="flex flex-row items-start gap-5")
+      div(id="sudoku-board" class="relative w-[36rem] shrink-0 h-[36rem] grid grid-cols-9 grid-rows-9")
+        div(class="absolute top-0 left-[12rem] h-full w-0 border")
+        div(class="absolute top-0 left-[24rem] h-full w-0 border")
+        div(class="absolute top-[12rem] left-0 h-0 w-full border")
+        div(class="absolute top-[24rem] left-0 h-0 w-full border")
+        - const arr = new Array(81).fill(null)
+        each _, idx in arr
+          div(id=`sudoku-square-${(idx-idx%9)/9}-${idx%9}` class="w-full h-full flex justify-center items-center border border-neutral-400 text-lg cursor-pointer bg-transparent" onclick=`handleClickSquare(${(idx-idx%9)/9}, ${idx%9})`)
+
+      div(class="p-2 w-[12rem] flex flex-col gap-2 shrink-0 justify-center")
+        button(class="px-3 py-1 rounded-md bg-zinc-800 hover:bg-zinc-700 text-white font-bold cursor-pointer" onclick="handleGetHint()") Hint?
+        button(class="px-3 py-1 rounded-md bg-zinc-800 hover:bg-zinc-700 text-white font-bold cursor-pointer" onclick="handleSolve()") Solve
+        button(class="px-3 py-1 rounded-md bg-zinc-800 hover:bg-zinc-700 text-white font-bold cursor-pointer" onclick="handleReset()") Reset
+        button(class="px-3 py-1 rounded-md bg-zinc-800 hover:bg-zinc-700 text-white font-bold cursor-pointer" onclick="handleNewGame()") New game
+        div(class="mt-[1rem] w-ful h-[9rem] grid grid-cols-3 grid-rows-3 gap-2 text-white")
+          - const kb = new Array(9).fill(null)
+          each _, idx in kb
+            div(id=`sudoku-key-${idx+1}` class="w-full h-full flex justify-center items-center text-lg cursor-pointer bg-zinc-800 hover:bg-zinc-700 rounded-md" onclick=`handleClickKey(${idx+1})`) #{idx+1}
+
+  script(src="/scripts/sudoku.js")

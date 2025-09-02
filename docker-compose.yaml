@@ -1,9 +1,4 @@
 services:
-  app:
-    build: .
-    ports:
-      - 3000:3000
-    container_name: retro_legends
 
   database:
     image: postgres
@@ -16,3 +11,18 @@ services:
       POSTGRES_DB: retro_legends_database
     volumes:
       - ./database/postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    ports:
+      - 3000:3000
+    container_name: retro_legends
+    depends_on:
+      database:
+        condition: service_healthy
+        restart: true

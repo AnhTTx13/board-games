@@ -183,7 +183,7 @@ const updateBoard = (data) => {
   }
 };
 
-// compile from src/libs/line98-base.ts, check it for more clearly
+// compile from src/libs/line98-base.ts
 function threeRandomColor() {
   const result = [];
   for (let i = 0; i < 3; i++) {
