@@ -1,0 +1,15 @@
+extends app-layout
+
+block content
+  div(class="w-full h-full flex items-center justify-center flex-col")
+    h1(class="text-2xl font-bold") Line 98
+    div(id="line98-board" class="relative w-[36rem] outline-2 h-[36rem] grid grid-cols-9 grid-rows-9")
+      div(id="line98-game-end-banner" class="hidden z-20 absolute w-full h-full top-0 left-0 z-10 bg-black/50 text-white flex justify-center items-center font-bold text-3xl") Game Ended
+      - const arr = new Array(81).fill(null)
+      each _, idx in arr
+        div(id=`line98-square-${(idx-idx%9)/9}-${idx%9}` class="w-full h-full flex justify-center items-center border text-lg outline-none cursor-pointer bg-transparent" onclick=`handleClickSquare(${(idx-idx%9)/9}, ${idx%9})`)
+
+    div(class="w-[36rem] p-2 flex gap-2 justify-center font-semibold")
+      button(class="px-3 py-1 rounded-md bg-zinc-800 hover:bg-zinc-700 text-white font-bold cursor-pointer" onclick="handleGetHint()") Hint?
+      button(class="px-3 py-1 rounded-md bg-zinc-800 hover:bg-zinc-700 text-white font-bold cursor-pointer" onclick="handleNewGame()") New game
+  script(src="/scripts/line98.js")

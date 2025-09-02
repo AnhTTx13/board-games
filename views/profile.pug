@@ -1,0 +1,50 @@
+extends app-layout
+
+block content
+  script(src="/scripts/profile.js")
+  form(id="profile-form" class="flex w-full py-5 flex-col gap-y-4")
+    div(class="w-full grid grid-cols-4 gap-x-12")
+      div(class="flex flex-col gap-y-3 w-full col-span-3")
+        div(class="flex flex-col w-full")
+          label(for="email") Email
+          input(class="border cursor-not-allowed px-3 py-1 w-full text-black/50" title="Cannot change email" readonly="true" value= user.email type="email" name="email")
+          p(class="text-sm") Your registed email.
+        div(class="flex flex-col w-full")
+          label(for="image") Image
+          input(class="border px-3 py-1 w-full" name="image" value= user.image)
+          p(class="text-sm") Your image url.
+      if user && user.image
+        img(class="h-[160px] w-[160px] aspect-square rounded-xl shrink-0" src=user.image alt="user")
+      else
+        svg(xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-[160px] w-[160px] p-4 aspect-square rounded-xl bg-gray-200 shrink-0 lucide lucide-user-icon lucide-user")
+          path(d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2")
+          circle(cx="12" cy="7" r="4")
+
+    div(class="w-full grid grid-cols-1 lg:grid-cols-2 gap-4")
+      div(class="flex flex-col gap-3")
+        div(class="flex flex-col w-full")
+          label(for="username") User-name
+          input(class="border px-3 py-1 w-full" minLength="3" maxLength="30" name="username" value= user.username)
+          p(class="text-sm") Your username.
+        div(class="flex flex-col w-full")
+          label(for="nickname") Nick-name
+          input(class="border px-3 py-1 w-full" maxLength="30" name="nickname" value= user.nickname)
+          p(class="text-sm") Your nickname.
+        div(class="flex flex-col w-full")
+          label(for="age") Age
+          input(class="border px-3 py-1 w-full" min="6" type="number" name="age" value= user.age)
+          p(class="text-sm") Your age.
+
+      div(class="flex flex-col gap-3")
+        div(class="flex flex-col w-full")
+          label(for="newPassword") Change password?
+          input(class="border px-3 py-1 w-full" name="password" type="password" placeholder="new password")
+          p(class="text-sm") Your new password.
+        div(class="flex flex-col w-full")
+          label(for="confirmPassword") Confirm new password
+          input(class="border px-3 py-1 w-full" name="confirm_password" type="password" placeholder="confirm new password")
+          p(class="text-sm") Confirm password.
+      
+    div(class="w-full flex flex-row gap-x-2")
+      button(class="rounded-md bg-zinc-900 hover:bg-zinc-700 px-3 py-1 text-white cursor-pointer" type="button" onclick="handleSubmitProfile()") Submit
+      button(class="rounded-md bg-zinc-200 hover:bg-zinc-300 px-3 py-1 cursor-pointer" type="button" onclick="handleResetForm()") Reset

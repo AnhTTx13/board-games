@@ -1,0 +1,37 @@
+script.
+  const handleLogout = () => {
+    _post("/user/logout")
+      .then((res) => {
+        window.location.href = "/";
+      })
+      .catch((err) => {
+        console.error(err);
+        alert(err.message || "Something went wrong")
+      });
+  }
+
+
+header(class="sticky left-0 top-0 z-10 w-full h-20 bg-white border-b px-[20%] flex flex-row justify-between items-center")
+  nav(class="flex items-center font-semibold text-lg underline gap-3")
+    a(href="/") Home
+    a(href="/game/caro") Caro
+    a(href="/game/line98") Line98
+  div(class="relative inline-block text-left")
+    script.
+      const triggerDropdown = (e) => {document.getElementById("dropdown-content-header-user").classList.toggle("hidden")}
+    button(onclick="triggerDropdown()" type="button" class="dropdown-button rounded-full cursor-pointer z-10 bg-transparent" tabindex="1")
+      if user && user.image
+        img(class="pointer-events-none w-10 h-10 rounded-full" src=user.image alt="user")
+      else
+        svg(xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="pointer-events-none w-10 h-10 rounded-full bg-gray-200 p-2 lucide lucide-user-icon lucide-user")
+          path(d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2")
+          circle(cx="12" cy="7" r="4")
+    div(id="dropdown-content-header-user" class="dropdown-content hidden absolute right-0 z-10 mt-2 w-36 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden" tabindex="-1")
+      if user
+        div(class="py-1" role="none")
+          a(href="/profile" class="block px-4 py-2 text-sm hover:bg-gray-200" role="menuitem" tabindex="-1" id="menu-item-0") Profile
+          button(class="w-full text-start cursor-pointer px-4 py-2 text-sm hover:bg-gray-200" onclick="handleLogout()") Log out
+      else
+        div(class="py-1" role="none")
+          a(href="/auth/login" class="block px-4 py-2 text-sm hover:bg-gray-200" role="menuitem" tabindex="-1" id="menu-item-0") Login
+          a(href="/auth/signup" class="block px-4 py-2 text-sm hover:bg-gray-200" role="menuitem" tabindex="-1" id="menu-item-0") Signup

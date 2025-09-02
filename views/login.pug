@@ -1,0 +1,16 @@
+extends app-layout
+
+block content
+  script(src="/scripts/login.js")
+  div(class="w-full flex flex-row gap-12 justify-between")
+    form(id="login-form" class="flex flex-col grow gap-3 py-5")
+      div(class="flex flex-col w-full")
+        label(for="username") User name
+        input(class="border px-3 py-1 w-full" minLength="3" maxLength="30" name="username")
+        p(class="text-sm") Your user name.
+      div(class="flex flex-col w-full")
+        label(for="newPassword") Password
+        input(class="border px-3 py-1 w-full" name="password" type="password")
+        p(class="text-sm") Your password.
+      button(class="rounded-md bg-zinc-900 hover:bg-zinc-700 px-3 py-1 text-white cursor-pointer w-fit" type="button" onclick="handleLogin()") Login
+    img(className="hidden 2xl:block rounded-xl w-[512px] h-[368px] mt-8" src="https://storage.googleapis.com/gweb-uniblog-publish-prod/original_images/Social_dino_with_hat.gif" alt="running dinasour" height=368 width=512)

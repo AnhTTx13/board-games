@@ -1,0 +1,18 @@
+services:
+  app:
+    build: .
+    ports:
+      - 3000:3000
+    container_name: retro_legends
+
+  database:
+    image: postgres
+    container_name: retro_legends_database
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_USER: xbro
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: retro_legends_database
+    volumes:
+      - ./database/postgres:/var/lib/postgresql/data

@@ -1,0 +1,38 @@
+extends app-layout
+
+block content
+  script(src="/socket.io/socket.io.js")
+  script(src="/scripts/caro.js")
+  div(class="flex gap-5 justify-center flex-wrap")
+    div(class="relative grid grid-cols-12 grid-rows-12 border w-[32rem] h-[32rem] font-bold shrink-0")
+      div(id="caro-winner" class="hidden absolute w-full h-full top-0 left-0 bg-black/50 flex items-center justify-center text-3xl font-bold text-white")
+        h1= winner + " IS WIN"
+        
+      - const arr = new Array(144).fill(null)
+      each _, idx in arr
+        div(id=`caro-square-${(idx-idx%12)/12}-${idx%12}` class="w-full h-full flex justify-center items-center border text-lg outline-none cursor-pointer" onclick=`handleCaroMove(${(idx-idx%12)/12}, ${idx%12})`)
+
+    div(class="flex flex-col gap-3 grow min-w-[24rem] max-w-[32rem]")
+      div(class="flex flex-col text-sm")
+        h3(id="caro-game-connection") Connection: 
+          span(class="font-bold") Disconnected
+        h3(id="caro-user-socket-id") Socket id: 
+          span(class="font-bold") _
+        h3(id="caro-game-state") Game state: 
+          span(class="font-bold") not-started
+        h3 Player: 
+          if user && user.nickname
+            span(class="font-bold" id="caro-user-nickname")= user.nickname  
+          else
+            span(class="font-bold") someone  
+        h3(id="caro-user-player-turn") Player turn: 
+          span(class="font-bold") _ 
+        h3(id="caro-current-turn") Current turn: 
+          span(class="font-bold") _
+        div(id="caro-game-messages" class="flex flex-col h-[16rem] border overflow-y-auto px-2 mt-2")
+          h3(class="font-semibold text-lg w-full border-b text-center mb-2") Message
+      div(class="flex flex-col gap-1")
+        input(id="caro-room-input" class="h-10 w-full border px-3")
+        div(class="flex gap-1")
+          button(class="px-3 py-1 rounded-sm bg-zinc-800 hover:bg-zinc-700 text-white font-bold cursor-pointer" onclick="handleJoinRoom()") Enter room
+          button(class="px-3 py-1 rounded-sm bg-zinc-800 hover:bg-zinc-700 text-white font-bold cursor-pointer" onclick="handleLeaveRoom()") Leave room
